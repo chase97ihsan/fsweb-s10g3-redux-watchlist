@@ -4,6 +4,7 @@ import {
   NEXT_MOVIE,
   BACK_MOVIE,
 } from "../actions/actions";
+import { movies } from "../movies";
 
 const initialState = {
   favorites: [],
@@ -27,9 +28,16 @@ const reducers = (state = initialState, action) => {
       };
 
     case NEXT_MOVIE:
-      return { ...state, sira: state.sira + 1 };
+      if (state.sira < movies.length - 1) {
+        return { ...state, sira: state.sira + 1 };
+      } else {
+        return state;
+      }
+
     case BACK_MOVIE:
-      return { ...state, sira: state.sira - 1 };
+      if (state.sira !== 0) {
+        return { ...state, sira: state.sira - 1 };
+      }
 
     default:
       return state;
